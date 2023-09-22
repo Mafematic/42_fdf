@@ -50,7 +50,7 @@ static int	process_file_and_setup_iso(t_prog_data *data, char *filename)
 
 static void	setup_hooks_and_draw(t_prog_data *data)
 {
-	isopixel(data->grid, data->win, data->iso, data);
+	adapt_iso_pixel(data);
 	draw_grid(data->grid, data->win, data);
 	mlx_hook(data->win->win_ptr, 2, 1L << 0, handle_key, data);
 	mlx_hook(data->win->win_ptr, 17, 1L << 17, handle_close, data);

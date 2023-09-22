@@ -31,7 +31,7 @@ static int	handle_col(char **line, t_pixel ***grid, t_prog_data *data, int x)
 		grid[x][y] = create_element(p);
 		if (!grid[x][y])
 		{
-			return (handle_fail_creation(line, grid, x, y));
+			return (handle_fail(line, grid, x, y));
 		}
 		free(line[y]);
 		y++;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fszendzi <fszendzi@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/22 18:48:09 by fszendzi          #+#    #+#             */
+/*   Updated: 2023/09/22 18:48:12 by fszendzi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FDF_H
 # define FDF_H
 
@@ -69,11 +81,12 @@ typedef struct s_line_vars
 	int	err;
 }	t_line_vars;
 
+void		adapt_iso_pixel(t_prog_data *data);
 int			ft_atoi(const char *nptr);
 int			close_file(int fd);
 void		close_window_and_free(t_window *window);
-t_pixel* 	create_element(t_pixel pt);
-void 		draw_grid(t_pixel ***grid, t_window *w, t_prog_data *data);
+t_pixel		*create_element(t_pixel pt);
+void		draw_grid(t_pixel ***grid, t_window *w, t_prog_data *data);
 void		draw_line(t_image *img, t_pixel *start, t_pixel *end, int color);
 t_iso		*find_min_max_iso(t_pixel ***grid, t_prog_data *data);
 int			find_rows_cols(t_prog_data *data, char *filename);
@@ -86,14 +99,13 @@ size_t		ft_strlen(char *str);
 char		*ft_substr(char *s, unsigned int start, size_t len);
 void		free_grid(t_pixel ***grid, int num_rows, int num_columns);
 int			handle_close(void *param);
-int			handle_fail_creation(char **line_num, t_pixel ***grid, int x, int y);
+int			handle_fail(char **line_num, t_pixel ***grid, int x, int y);
 int			handle_key(int keycode, void *param);
 int			handle_overflow_columns(char **numbers_in_line, int y);
-t_pixel 	***initialize_grid(int num_rows, int num_columns);
-void		isopixel(t_pixel ***grid, t_window *w, t_iso *iso, t_prog_data *data);
+t_pixel		***initialize_grid(int num_rows, int num_columns);
 int			ft_iswhitespace(char c);
 int			open_file(char *file_path);
-t_window 	*open_window(int width, int height, char *title);
+t_window	*open_window(int width, int height, char *title);
 int			parse_file(t_pixel ***grid, t_prog_data *data, char *filename);
 void		put_pixel_to_image(t_image *img, int x, int y, int color);
 

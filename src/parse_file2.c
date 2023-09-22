@@ -31,7 +31,7 @@ int	handle_overflow_columns(char **numbers_in_line, int y)
 	return (-1);
 }
 
-int	handle_fail_creation(char **line_num, t_pixel ***grid, int x, int y)
+int	handle_fail(char **line_num, t_pixel ***grid, int x, int y)
 {
 	int	prev_y;
 
