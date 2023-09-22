@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) Launch fdf_me",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/fdf_me",
+            "args": ["42.fdf"], // Specify the input file as an argument
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "build", // Optional: Specify a task to run before debugging
+            //"miDebuggerPath": "/path/to/gdb", // Optional: Specify the path to GDB
+            "programArgs": ["42.fdf"] // Optional: Specify program arguments separately
+        }
+    ]
+}

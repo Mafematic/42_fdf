@@ -1,0 +1,71 @@
+#include "../includes/get_next_line.h"
+#include "../includes/fdf.h"
+
+void	put_pixel_to_image(t_image *img, int x, int y, int color)
+{
+	int	index;
+
+	if (x < 0 || y < 0)
+		return ;
+	index = y * img->size_line + x * 4;
+	*(int *)(img->data + index) = color;
+}
+
+int	get_color(int value)
+{
+	if (value <= -6) 
+		return (0x00008B);
+	else if (value <= 0)
+		return (0x007FFF);
+	else if (value <= 5)
+		return (0x228B22);
+	else if (value <= 10)
+		return (0x808000);
+	else if (value <= 15)
+		return (0xFFD700);
+	else if (value <= 30)
+		return (0x9ACD32);
+	else if (value <= 60)
+		return (0xFFFF00);
+	else if (value <= 90)
+		return (0xFFA500);
+	else if (value <= 120)
+		return (0xFF4500);
+	return (0x8B0000);
+}
+
+void	draw_segment(t_image *i, t_pixel *start, t_pixel *end, int color)
+{
+	put_pixel_to_image(i, start->wX, start->wY, color);
+	put_pixel_to_image(i, end->wX, end->wY, color);
+	draw_line(i, start, end, color);
+}
+
+void	draw_grid(t_pixel ***grid, t_window *w, t_program_data *data)
+{
+	t_image	i;
+	void	*img_ptr;
+	int		row;
+	int		col;
+	int		color;
+
+	img_ptr = mlx_new_image(w->mlx_ptr, w->win_width, w->win_height);
+	i.data = mlx_get_data_addr(img_ptr, &i.bits_pixel, &i.size_line, &i.endian);
+	row = 0;
+	while (row < data->rows)
+	{
+		col = 0;
+		while (col < data->cols)
+		{
+			color = get_color(grid[row][col]->z);
+			if (col < data->cols - 1)
+				draw_segment(&i, grid[row][col], grid[row][col + 1], color);
+			if (row < data->rows - 1)
+				draw_segment(&i, grid[row][col], grid[row + 1][col], color);
+			col++;
+		}
+		row++;
+	}
+	mlx_put_image_to_window(w->mlx_ptr, w->win_ptr, img_ptr, 0, 0);
+	mlx_destroy_image(w->mlx_ptr, img_ptr);
+}
