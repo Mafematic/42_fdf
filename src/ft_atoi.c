@@ -1,7 +1,7 @@
 #include "../includes/get_next_line.h"
 #include "../includes/fdf.h"
 
-static int	ft_iswhitespace(char c)
+int	ft_iswhitespace(char c)
 {
 	if ((c >= 9 && c <= 13) || c == ' ')
 	{

@@ -13,9 +13,9 @@ t_window	*open_window(int width, int height, char *title)
 		free(w);
 		return (NULL);
 	}
-	w->win_width = width;
-	w->win_height = height;
-	w->win_ptr = mlx_new_window(w->mlx_ptr, w->win_width, w->win_height, title);
+	w->width = width;
+	w->height = height;
+	w->win_ptr = mlx_new_window(w->mlx_ptr, w->width, w->height, title);
 	if (!w->win_ptr)
 	{
 		free(w);

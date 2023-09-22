@@ -1,7 +1,7 @@
 #include "../includes/get_next_line.h"
 #include "../includes/fdf.h"
 
-void	isopixel(t_pixel ***g, t_window *w, t_iso_bounds *i, t_program_data *d)
+void	isopixel(t_pixel ***g, t_window *w, t_iso *i, t_prog_data *d)
 {
 	int		m;
 	int		n;
@@ -22,9 +22,9 @@ void	isopixel(t_pixel ***g, t_window *w, t_iso_bounds *i, t_program_data *d)
 			normalized_iso_y = 2.0 * (current_pixel->isoY - i->min_iso_y) 
 				/ (i->max_iso_y - i->min_iso_y) - 1.0;
 			current_pixel->wX = w->padding + (normalized_iso_x + 1.0) 
-				* ((w->win_width - 2 * w->padding) / 2.0);
+				* ((w->width - 2 * w->padding) / 2.0);
 			current_pixel->wY = w->padding + (normalized_iso_y + 1.0) 
-				* ((w->win_height - 2 * w->padding) / 2.0);
+				* ((w->height - 2 * w->padding) / 2.0);
 			n++;
 		}
 	}

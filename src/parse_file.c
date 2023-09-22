@@ -33,80 +33,101 @@ static int	handle_fail_creation(char **line_num, t_pixel ***grid, int x, int y)
 	return (-1);
 }
 
-static int	handle_col(char **line_num, t_pixel ***grid, t_window *w, t_program_data *data, int x)
+static int	handle_col(char **line, t_pixel ***grid, t_prog_data *data, int x)
 {
 	t_pixel	p;
 	int		y;
 
 	y = 0;
-	while (line_num[y] != NULL && y < data->cols)
+	while (line[y] != NULL && y < data->cols)
 	{
 		if (y >= data->cols)
 		{
-			return (handle_overflow_columns(line_num, y));
+			return (handle_overflow_columns(line, y));
 		}
 		p.x = x;
 		p.y = y;
-		p.z = ft_atoi(line_num[y]);
-		grid[x][y] = create_element(p, w->win_width, w->win_height);
+		p.z = ft_atoi(line[y]);
+		grid[x][y] = create_element(p);
 		if (!grid[x][y])
 		{
-			return (handle_fail_creation(line_num, grid, x, y));
+			return (handle_fail_creation(line, grid, x, y));
 		}
-		free(line_num[y]);
+		free(line[y]);
 		y++;
 	}
 	return (1);
 }
 
-static int	process_line(char *line, t_pixel ***grid, t_window *w, t_program_data *data, int x)
+static int	process_line(char *line, t_pixel ***grid, t_prog_data *data, int x)
 {
-	char 	**numbers_in_line;
+	char	**numbers_in_line;
 	int		result;
 
 	numbers_in_line = ft_split(line, ' ');
-    if (!numbers_in_line) 
-        return (-1);
-    result = handle_col(numbers_in_line, grid, w, data, x);
-    free(numbers_in_line);
-    return result;
+	if (!numbers_in_line)
+		return (-1);
+	result = handle_col(numbers_in_line, grid, data, x);
+	free(numbers_in_line);
+	return (result);
 }
 
-int parse_file(t_pixel ***grid, t_window *w, t_program_data *data)
+static int	initialize_parsing(int *fd, char *filename)
 {
-    char	*line;
-    int		fd;
-    int		x;
-	
+	*fd = open_file(filename);
+	if (*fd <= 0)
+	{
+		perror("Could not open file!");
+		return (-1);
+	}
+	return (1);
+}
+
+static int	process_lines(int fd, t_pixel ***grid, t_prog_data *data)
+{
+	char	*line;
+	int		x;
+
 	x = 0;
-    fd = open_file("pylone.fdf");
-    if (fd <= 0)
-    {
-        perror("Could not open file!");
-        return (-1);
-    }
-    while ((line = get_next_line(fd)) != NULL)
-    {
-        if (x >= data->rows)
-        {
-            perror("Too many rows in the input file!");
-            free(line);
-            close_file(fd);
-            return (-1);
-        }
-        if (process_line(line, grid, w, data, x) == -1)
-        {
-            free(line);
-            close_file(fd);
-            return (-1);
-        }
-        free(line);
-        x++;
-    }
-    if (close_file(fd) == 0)
-    {
-        perror("Could not close file.");
-        return (-1);
-    }
-    return (1); 
+	line = get_next_line(fd);
+	while (line != NULL)
+	{
+		if (x >= data->rows)
+		{
+			perror("Too many rows in the input file!");
+			free(line);
+			return (-1);
+		}
+		if (process_line(line, grid, data, x) == -1)
+		{
+			free(line);
+			return (-1);
+		}
+		free(line);
+		x++;
+		line = get_next_line(fd);
+	}
+	return (1);
+}
+
+int	parse_file(t_pixel ***grid, t_prog_data *data, char *filename)
+{
+	int	fd;
+
+	if (initialize_parsing(&fd, filename) == -1)
+	{
+		close_file(fd);
+		return (-1);
+	}
+	if (process_lines(fd, grid, data) == -1)
+	{
+		close_file(fd);
+		return (-1);
+	}
+	if (close_file(fd) == 0)
+	{
+		perror("Could not close file.");
+		return (-1);
+	}
+	return (1);
 }

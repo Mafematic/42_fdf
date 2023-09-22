@@ -1,7 +1,7 @@
 #include "../includes/get_next_line.h"
 #include "../includes/fdf.h"
 
-t_pixel	*create_element(t_pixel pt, int width, int height)
+t_pixel	*create_element(t_pixel pt)
 {
 	t_pixel	*new_pixel;
 

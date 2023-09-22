@@ -11,7 +11,7 @@ void	put_pixel_to_image(t_image *img, int x, int y, int color)
 	*(int *)(img->data + index) = color;
 }
 
-int	get_color(int value)
+static int	get_color(int value)
 {
 	if (value <= -6) 
 		return (0x00008B);
@@ -34,14 +34,14 @@ int	get_color(int value)
 	return (0x8B0000);
 }
 
-void	draw_segment(t_image *i, t_pixel *start, t_pixel *end, int color)
+static void	draw_segment(t_image *i, t_pixel *start, t_pixel *end, int color)
 {
 	put_pixel_to_image(i, start->wX, start->wY, color);
 	put_pixel_to_image(i, end->wX, end->wY, color);
 	draw_line(i, start, end, color);
 }
 
-void	draw_grid(t_pixel ***grid, t_window *w, t_program_data *data)
+void	draw_grid(t_pixel ***grid, t_window *w, t_prog_data *data)
 {
 	t_image	i;
 	void	*img_ptr;
@@ -49,7 +49,7 @@ void	draw_grid(t_pixel ***grid, t_window *w, t_program_data *data)
 	int		col;
 	int		color;
 
-	img_ptr = mlx_new_image(w->mlx_ptr, w->win_width, w->win_height);
+	img_ptr = mlx_new_image(w->mlx_ptr, w->width, w->height);
 	i.data = mlx_get_data_addr(img_ptr, &i.bits_pixel, &i.size_line, &i.endian);
 	row = 0;
 	while (row < data->rows)

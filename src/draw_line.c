@@ -1,7 +1,7 @@
 #include "../includes/get_next_line.h"
 #include "../includes/fdf.h"
 
-void	initialize_line_vars(t_pixel *start, t_pixel *end, t_line_vars *v)
+static void	initialize_line_vars(t_pixel *start, t_pixel *end, t_line_vars *v)
 {
 	v->x0 = start->wX;
 	v->y0 = start->wY;

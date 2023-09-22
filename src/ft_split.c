@@ -1,14 +1,5 @@
 #include "../includes/fdf.h"
 
-int	is_whitespace(char c)
-{
-	if (c >= 7 && c <= 13)
-		return (1);
-	if (c == ' ')
-		return (1);
-	return (0);
-}
-
 int	contains_number(char *s, size_t len)
 {
 	size_t	i;

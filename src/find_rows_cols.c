@@ -1,7 +1,7 @@
 #include "../includes/get_next_line.h"
 #include "../includes/fdf.h"
 
-int	handle_error_and_close(int fd, char *message)
+static int	handle_error_and_close(int fd, char *message)
 {
 	perror(message);
 	if (close_file(fd) == 0)
@@ -12,7 +12,7 @@ int	handle_error_and_close(int fd, char *message)
 	return (-1);
 }
 
-int	count_columns_and_free(char **numbers_in_line)
+static int	count_columns_and_free(char **numbers_in_line)
 {
 	int	y;
 
@@ -26,7 +26,7 @@ int	count_columns_and_free(char **numbers_in_line)
 	return (y);
 }
 
-int	process_line(char *line, int fd, int *max_columns)
+static int	process_line(char *line, int fd, int *max_columns)
 {
 	char	**numbers_in_line;
 	int		current_columns;
@@ -45,16 +45,15 @@ int	process_line(char *line, int fd, int *max_columns)
 	return (1);
 }
 
-int	find_rows_cols(t_program_data *data)
+int	find_rows_cols(t_prog_data *data, char *filename)
 {
 	char	*line;
 	int		fd;
-	char	**numbers_in_line;
 	int		max_columns;
 
 	max_columns = 0;
 	data->rows = 0;
-	fd = open_file("pylone.fdf");
+	fd = open_file(filename);
 	if (fd <= 0)
 	{
 		perror("Could not open file!\n");

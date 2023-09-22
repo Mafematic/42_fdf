@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -g
+CFLAGS = -g -Wall -Werror -Wextra
 LDFLAGS = -Lmlx -lmlx -lXext -lX11 -lm
 
 # Source files
