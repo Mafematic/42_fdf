@@ -1,35 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_close_file.c                                  :+:      :+:    :+:   */
+/*   handle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fszendzi <fszendzi@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/22 16:45:01 by fszendzi          #+#    #+#             */
-/*   Updated: 2023/09/22 16:45:03 by fszendzi         ###   ########.fr       */
+/*   Created: 2023/09/22 16:47:40 by fszendzi          #+#    #+#             */
+/*   Updated: 2023/09/22 16:47:43 by fszendzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
 #include "../includes/fdf.h"
 
-int	open_file(char *file_path)
+int	handle_key(int keycode, void *param)
 {
-	int	fd;
+	t_prog_data	*data;
 
-	fd = open(file_path, O_RDONLY);
-	if (fd == -1)
+	data = (t_prog_data *)param;
+	if (keycode == 65307)
 	{
-		return (0);
+		close_window_and_free(data->win);
+		free_grid(data->grid, data->rows, data->cols);
+		free(data->iso);
+		exit(0);
 	}
-	return (fd);
+	return (0);
 }
 
-int	close_file(int fd)
+int	handle_close(void *param)
 {
-	if (close(fd) == -1)
-	{
-		return (0);
-	}
-	return (1);
+	t_prog_data	*data;
+
+	data = (t_prog_data *)param;
+	close_window_and_free(data->win);
+	free_grid(data->grid, data->rows, data->cols);
+	free(data->iso);
+	exit(0);
+	return (0);
 }

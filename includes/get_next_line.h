@@ -19,8 +19,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-#include <fcntl.h> // open & close file
-# include <stdio.h> // delete later
+# include <fcntl.h> 
 
 char	*get_next_line(int fd);
 char	*ft_strchr(char *s, int c);

@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_line.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fszendzi <fszendzi@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/22 16:45:11 by fszendzi          #+#    #+#             */
+/*   Updated: 2023/09/22 16:45:13 by fszendzi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/get_next_line.h"
 #include "../includes/fdf.h"
 
 static void	initialize_line_vars(t_pixel *start, t_pixel *end, t_line_vars *v)
 {
-	v->x0 = start->wX;
-	v->y0 = start->wY;
-	v->x1 = end->wX;
-	v->y1 = end->wY;
+	v->x0 = start->w_x;
+	v->y0 = start->w_y;
+	v->x1 = end->w_x;
+	v->y1 = end->w_y;
 	v->dx = abs(v->x1 - v->x0);
 	v->dy = abs(v->y1 - v->y0);
 	if (v->x0 < v->x1)

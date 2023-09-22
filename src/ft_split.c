@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fszendzi <fszendzi@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/22 16:44:16 by fszendzi          #+#    #+#             */
+/*   Updated: 2023/09/22 16:44:19 by fszendzi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/get_next_line.h"
 #include "../includes/fdf.h"
 
 int	contains_number(char *s, size_t len)
@@ -39,20 +52,6 @@ static char	**counter(char *s, char c)
 	if (!words)
 		return (NULL);
 	return (words);
-}
-
-void	free_words(char **words)
-{
-	int	i;
-
-	i = 0;
-	while (words[i] != NULL)
-	{
-		free(words[i]);
-		words[i] = NULL;
-		i++;
-	}
-	free(words);
 }
 
 static int	find_next_number(char *s, char c, size_t *start, size_t *end)

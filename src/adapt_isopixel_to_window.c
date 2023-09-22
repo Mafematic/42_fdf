@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   adapt_isopixel_to_window.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fszendzi <fszendzi@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/22 16:43:06 by fszendzi          #+#    #+#             */
+/*   Updated: 2023/09/22 16:43:17 by fszendzi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/get_next_line.h"
 #include "../includes/fdf.h"
 
@@ -17,13 +29,13 @@ void	isopixel(t_pixel ***g, t_window *w, t_iso *i, t_prog_data *d)
 		while (n < d->cols) 
 		{
 			current_pixel = g[m][n];
-			normalized_iso_x = 2.0 * (current_pixel->isoX - i->min_iso_x) 
+			normalized_iso_x = 2.0 * (current_pixel->iso_x - i->min_iso_x) 
 				/ (i->max_iso_x - i->min_iso_x) - 1.0;
-			normalized_iso_y = 2.0 * (current_pixel->isoY - i->min_iso_y) 
+			normalized_iso_y = 2.0 * (current_pixel->iso_y - i->min_iso_y) 
 				/ (i->max_iso_y - i->min_iso_y) - 1.0;
-			current_pixel->wX = w->padding + (normalized_iso_x + 1.0) 
+			current_pixel->w_x = w->padding + (normalized_iso_x + 1.0) 
 				* ((w->width - 2 * w->padding) / 2.0);
-			current_pixel->wY = w->padding + (normalized_iso_y + 1.0) 
+			current_pixel->w_y = w->padding + (normalized_iso_y + 1.0) 
 				* ((w->height - 2 * w->padding) / 2.0);
 			n++;
 		}

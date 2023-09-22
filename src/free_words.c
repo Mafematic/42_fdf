@@ -1,40 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   free_words.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fszendzi <fszendzi@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/22 16:48:23 by fszendzi          #+#    #+#             */
-/*   Updated: 2023/09/22 16:48:25 by fszendzi         ###   ########.fr       */
+/*   Created: 2023/09/22 16:47:29 by fszendzi          #+#    #+#             */
+/*   Updated: 2023/09/22 16:47:33 by fszendzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/get_next_line.h"
 #include "../includes/fdf.h"
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+void	free_words(char **words)
 {
-	char	*sub;
-	size_t	i;
-	size_t	str_len;
+	int	i;
 
-	if (!s)
-		return (NULL);
-	str_len = ft_strlen(s);
-	if (start > str_len)
-		return (ft_strdup(""));
-	if (len > str_len - start)
-		len = str_len - start;
-	sub = (char *)malloc(sizeof(char) * (len + 1));
-	if (!sub)
-		return (NULL);
 	i = 0;
-	while (i < len && s[start])
+	while (words[i] != NULL)
 	{
-		sub[i] = s[start];
+		free(words[i]);
+		words[i] = NULL;
 		i++;
-		start++;
 	}
-	sub[i] = '\0';
-	return (sub);
+	free(words);
 }

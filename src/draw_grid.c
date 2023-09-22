@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_grid.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fszendzi <fszendzi@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/22 16:44:36 by fszendzi          #+#    #+#             */
+/*   Updated: 2023/09/22 16:44:40 by fszendzi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/get_next_line.h"
 #include "../includes/fdf.h"
 
@@ -36,8 +48,8 @@ static int	get_color(int value)
 
 static void	draw_segment(t_image *i, t_pixel *start, t_pixel *end, int color)
 {
-	put_pixel_to_image(i, start->wX, start->wY, color);
-	put_pixel_to_image(i, end->wX, end->wY, color);
+	put_pixel_to_image(i, start->w_x, start->w_y, color);
+	put_pixel_to_image(i, end->w_x, end->w_y, color);
 	draw_line(i, start, end, color);
 }
 
