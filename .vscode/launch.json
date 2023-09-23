@@ -5,7 +5,7 @@
             "name": "(gdb) Launch fdf_me",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/fdf_me",
+            "program": "${workspaceFolder}/fdf_bonus",
             "args": ["42.fdf"], // Specify the input file as an argument
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -26,7 +26,7 @@
             ],
             "preLaunchTask": "build", // Optional: Specify a task to run before debugging
             //"miDebuggerPath": "/path/to/gdb", // Optional: Specify the path to GDB
-            "programArgs": ["42.fdf"] // Optional: Specify program arguments separately
+            "programArgs": ["testmaps/42.fdf"] // Optional: Specify program arguments separately
         }
     ]
 }

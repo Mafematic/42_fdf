@@ -23,6 +23,8 @@
 
 # define MY_FLOAT_MAX 3.402823466e+38F
 # define MY_FLOAT_MIN -3.402823466e+38F
+#define PROJECTION_ISO 1
+#define PROJECTION_ORTHO 2
 
 typedef struct s_pixel
 {
@@ -59,6 +61,7 @@ typedef struct s_prog_data
 	t_iso		*iso;
 	int			rows;
 	int			cols;
+	int 		current_projection;
 }	t_prog_data;
 
 typedef struct s_image {
@@ -82,6 +85,7 @@ typedef struct s_line_vars
 }	t_line_vars;
 
 void		adapt_iso_pixel(t_prog_data *data);
+void		adapt_ortho_pixel(t_prog_data *data);
 int			ft_atoi(const char *nptr);
 int			close_file(int fd);
 void		close_window_and_free(t_window *window);
@@ -107,6 +111,7 @@ int			ft_iswhitespace(char c);
 int			open_file(char *file_path);
 t_window	*open_window(int width, int height, char *title);
 int			parse_file(t_pixel ***grid, t_prog_data *data, char *filename);
+void		project_new(t_prog_data *data);
 void		put_pixel_to_image(t_image *img, int x, int y, int color);
 
 #endif
