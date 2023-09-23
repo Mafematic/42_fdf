@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
-#include "../includes/fdf.h"
+#include "../includes/fdf_bonus.h"
 
 void	adapt_iso_pixel(t_prog_data *data)
 {
@@ -20,6 +20,9 @@ void	adapt_iso_pixel(t_prog_data *data)
 	t_pixel	*cur_pixel;
 	float	normalized_iso_x;
 	float	normalized_iso_y;
+
+	float zoom_center_x = data->win->width / 2.0;
+    float zoom_center_y = data->win->height / 2.0;
 
 	data->win->padding = 20;
 	m = -1;
@@ -33,10 +36,14 @@ void	adapt_iso_pixel(t_prog_data *data)
 				/ (data->iso->max_iso_x - data->iso->min_iso_x) - 1.0;
 			normalized_iso_y = 2.0 * (cur_pixel->iso_y - data->iso->min_iso_y) 
 				/ (data->iso->max_iso_y - data->iso->min_iso_y) - 1.0;
-			cur_pixel->w_x = data->win->padding + (normalized_iso_x + 1.0) 
+			cur_pixel->w_x = data->win->padding + (normalized_iso_x * data->scale_factor + 1.0) 
 				* ((data->win->width - 2 * data->win->padding) / 2.0);
-			cur_pixel->w_y = data->win->padding + (normalized_iso_y + 1.0) 
+			cur_pixel->w_y = data->win->padding + (normalized_iso_y * data->scale_factor + 1.0) 
 				* ((data->win->height - 2 * data->win->padding) / 2.0);
+
+			// Apply the zoom transformation around the center of the window
+            cur_pixel->w_x = (cur_pixel->w_x - zoom_center_x) * data->scale_factor + zoom_center_x;
+            cur_pixel->w_y = (cur_pixel->w_y - zoom_center_y) * data->scale_factor + zoom_center_y;
 			n++;
 		}
 	}

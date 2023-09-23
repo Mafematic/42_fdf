@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
-#include "../includes/fdf.h"
+#include "../includes/fdf_bonus.h"
 
 char	*extract_line_from_buffer(char *buffer)
 {

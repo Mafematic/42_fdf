@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
-#include "../includes/fdf.h"
+#include "../includes/fdf_bonus.h"
 
 static void	update_iso_bounds(t_iso *iso, t_pixel *current_pixel)
 {

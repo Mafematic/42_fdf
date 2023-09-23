@@ -11,16 +11,17 @@
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
-#include "../includes/fdf.h"
+#include "../includes/fdf_bonus.h"
 
-void	put_pixel_to_image(t_image *img, int x, int y, int color)
+void put_pixel_to_image(t_image *img, t_window *win, int x, int y, int color)
 {
-	int	index;
+    int index;
 
-	if (x < 0 || y < 0)
-		return ;
-	index = y * img->size_line + x * 4;
-	*(int *)(img->data + index) = color;
+    if (x < 0 || y < 0 || x >= win->width || y >= win->height)
+        return;
+
+    index = y * img->size_line + x * 4;
+    *(int *)(img->data + index) = color;
 }
 
 static int	get_color(int value)
@@ -46,11 +47,11 @@ static int	get_color(int value)
 	return (0x8B0000);
 }
 
-static void	draw_segment(t_image *i, t_pixel *start, t_pixel *end, int color)
+static void	draw_segment(t_image *i, t_window *w, t_pixel *start, t_pixel *end, int color)
 {
-	put_pixel_to_image(i, start->w_x, start->w_y, color);
-	put_pixel_to_image(i, end->w_x, end->w_y, color);
-	draw_line(i, start, end, color);
+	put_pixel_to_image(i, w, start->w_x, start->w_y, color);
+	put_pixel_to_image(i, w, end->w_x, end->w_y, color);
+	draw_line(i, w, start, end, color);
 }
 
 void	draw_grid(t_pixel ***grid, t_window *w, t_prog_data *data)
@@ -71,9 +72,9 @@ void	draw_grid(t_pixel ***grid, t_window *w, t_prog_data *data)
 		{
 			color = get_color(grid[row][col]->z);
 			if (col < data->cols - 1)
-				draw_segment(&i, grid[row][col], grid[row][col + 1], color);
+				draw_segment(&i, w, grid[row][col], grid[row][col + 1], color);
 			if (row < data->rows - 1)
-				draw_segment(&i, grid[row][col], grid[row + 1][col], color);
+				draw_segment(&i, w, grid[row][col], grid[row + 1][col], color);
 			col++;
 		}
 		row++;

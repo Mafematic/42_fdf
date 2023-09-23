@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef FDF_BONUS_H
+# define FDF_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -53,11 +53,19 @@ typedef struct s_iso
 	float	max_iso_y;
 }	t_iso;
 
+typedef struct s_ortho {
+    float min_ortho_x;
+    float max_ortho_x;
+    float min_ortho_y;
+    float max_ortho_y;
+} t_ortho;
+
 typedef struct s_prog_data
 {
 	t_window	*win;
 	t_pixel		***grid;
 	t_iso		*iso;
+	t_ortho		*ortho;
 	int			rows;
 	int			cols;
 	int 		current_projection;
@@ -85,13 +93,17 @@ typedef struct s_line_vars
 }	t_line_vars;
 
 void		adapt_iso_pixel(t_prog_data *data);
+void		adapt_ortho_pixel(t_prog_data *data);
 int			ft_atoi(const char *nptr);
+void		apply_zoom(t_prog_data *data, float scale_factor);
 int			close_file(int fd);
 void		close_window_and_free(t_window *window);
 t_pixel		*create_element(t_pixel pt);
 void		draw_grid(t_pixel ***grid, t_window *w, t_prog_data *data);
-void		draw_line(t_image *img, t_pixel *start, t_pixel *end, int color);
+void		draw_line(t_image *img, t_window *w, t_pixel *start, t_pixel *end, int color);
+void		put_pixel_to_image(t_image *img, t_window *win, int x, int y, int color);
 t_iso		*find_min_max_iso(t_pixel ***grid, t_prog_data *data);
+t_ortho		*find_min_max_ortho(t_pixel ***grid, t_prog_data *data);
 int			find_rows_cols(t_prog_data *data, char *filename);
 void		free_grid(t_pixel ***grid, int num_rows, int num_columns);
 void		free_numbers_from_index(char **numbers_in_line, int start_idx);
@@ -111,6 +123,5 @@ int			open_file(char *file_path);
 t_window	*open_window(int width, int height, char *title);
 int			parse_file(t_pixel ***grid, t_prog_data *data, char *filename);
 void		project_new(t_prog_data *data);
-void 		put_pixel_to_image(t_image *img, int x, int y, int color);
 
 #endif

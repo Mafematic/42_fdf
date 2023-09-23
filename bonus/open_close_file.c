@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
-#include "../includes/fdf.h"
+#include "../includes/fdf_bonus.h"
 
 int	open_file(char *file_path)
 {

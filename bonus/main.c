@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
-#include "../includes/fdf.h"
+#include "../includes/fdf_bonus.h"
 
 void project_new(t_prog_data *data)
 {
@@ -65,6 +65,7 @@ static int	process_file_and_setup_iso(t_prog_data *data, char *filename)
 		perror("Failed to allocate memory for iso bounds\n");
 		close_window_and_free(data->win);
 		free_grid(data->grid, data->rows, data->cols);
+		free(data->iso);
 		return (0);
 	}
 	return (1);
@@ -72,7 +73,8 @@ static int	process_file_and_setup_iso(t_prog_data *data, char *filename)
 
 static void	setup_hooks_and_draw(t_prog_data *data)
 {
-	data->current_projection = PROJECTION_ISO; 
+	data->current_projection = PROJECTION_ISO;
+	data->scale_factor = 1.0;
 	adapt_iso_pixel(data);
 	draw_grid(data->grid, data->win, data);
 	mlx_hook(data->win->win_ptr, 2, 1L << 0, handle_key, data);

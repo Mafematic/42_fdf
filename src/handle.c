@@ -13,11 +13,8 @@
 #include "../includes/get_next_line.h"
 #include "../includes/fdf.h"
 
-int	handle_key(int keycode, void *param)
+int	handle_key(int keycode, t_prog_data	*data)
 {
-	t_prog_data	*data;
-
-	data = (t_prog_data *)param;
 	if (keycode == 65307)
 	{
 		close_window_and_free(data->win);

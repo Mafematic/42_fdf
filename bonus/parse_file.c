@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
-#include "../includes/fdf.h"
+#include "../includes/fdf_bonus.h"
 
 static int	handle_col(char **line, t_pixel ***grid, t_prog_data *data, int x)
 {
