@@ -16,8 +16,6 @@
 int	handle_key(int keycode, void *param)
 {
 	t_prog_data	*data;
-	// Print the keycode to the console
-    printf("Keycode: %d\n", keycode);
 
 	data = (t_prog_data *)param;
 	if (keycode == 65307)
@@ -25,6 +23,7 @@ int	handle_key(int keycode, void *param)
 		close_window_and_free(data->win);
 		free_grid(data->grid, data->rows, data->cols);
 		free(data->iso);
+		free(data->ortho);
 		exit(0);
 	}
     if (keycode == 49)
@@ -51,6 +50,7 @@ int	handle_close(void *param)
 	close_window_and_free(data->win);
 	free_grid(data->grid, data->rows, data->cols);
 	free(data->iso);
+	free(data->ortho);
 	exit(0);
 	return (0);
 }

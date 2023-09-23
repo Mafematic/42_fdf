@@ -150,17 +150,17 @@ int	main(void)
 	fd = open_file("text");
 	if (fd <= 0)
 	{
-		printf("Could not open file!\n"); 
+		perror("Could not open file!\n"); 
 		return (1); 
 	}
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		printf("%s", line);
+		perror("%s", line);
 		free(line); 
 	}
 	if (close_file(fd) == 0)
 	{
-		printf("Could not close file.\n");
+		perror("Could not close file.\n");
 		return (1);
 	}
 	return (0); 

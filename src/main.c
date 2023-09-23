@@ -40,7 +40,7 @@ static int	process_file_and_setup_iso(t_prog_data *data, char *filename)
 	data->iso = find_min_max_iso(data->grid, data);
 	if (!data->iso)
 	{
-		printf("Failed to allocate memory for iso bounds\n");
+		perror("Failed to allocate memory for iso bounds\n");
 		close_window_and_free(data->win);
 		free_grid(data->grid, data->rows, data->cols);
 		return (0);

@@ -16,7 +16,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
-# include <stdio.h>
 # include <X11/Xutil.h>
 # include "mlx.h"
 # include "../mlx/mlx_int.h"
@@ -54,11 +53,19 @@ typedef struct s_iso
 	float	max_iso_y;
 }	t_iso;
 
+typedef struct s_ortho {
+    float min_ortho_x;
+    float max_ortho_x;
+    float min_ortho_y;
+    float max_ortho_y;
+} t_ortho;
+
 typedef struct s_prog_data
 {
 	t_window	*win;
 	t_pixel		***grid;
 	t_iso		*iso;
+	t_ortho		*ortho;
 	int			rows;
 	int			cols;
 	int 		current_projection;
@@ -93,6 +100,7 @@ t_pixel		*create_element(t_pixel pt);
 void		draw_grid(t_pixel ***grid, t_window *w, t_prog_data *data);
 void		draw_line(t_image *img, t_pixel *start, t_pixel *end, int color);
 t_iso		*find_min_max_iso(t_pixel ***grid, t_prog_data *data);
+t_ortho *find_min_max_ortho(t_pixel ***grid, t_prog_data *data);
 int			find_rows_cols(t_prog_data *data, char *filename);
 void		free_grid(t_pixel ***grid, int num_rows, int num_columns);
 void		free_numbers_from_index(char **numbers_in_line, int start_idx);
