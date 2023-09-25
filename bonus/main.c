@@ -13,20 +13,6 @@
 #include "../includes/get_next_line.h"
 #include "../includes/fdf_bonus.h"
 
-void project_new(t_prog_data *data)
-{
-    int projection_mode = data->current_projection;
-    
-    if (projection_mode == PROJECTION_ORTHO)
-    {
-        adapt_ortho_pixel(data);
-    }
-	if (projection_mode == PROJECTION_ISO)
-    {
-        adapt_iso_pixel(data);
-    }
-}
-
 static int	initialize_data(t_prog_data *data, char *filename)
 {
 	if (!find_rows_cols(data, filename))

@@ -13,15 +13,14 @@
 #include "../includes/get_next_line.h"
 #include "../includes/fdf_bonus.h"
 
-void put_pixel_to_image(t_image *img, t_window *win, int x, int y)
+void	put_pixel_to_image(t_image *img, t_window *win, int x, int y)
 {
-    int index;
+	int	index;
 
-    if (x < 0 || y < 0 || x >= win->width || y >= win->height)
-        return;
-
-    index = y * img->size_line + x * 4;
-    *(int *)(img->data + index) = img->color;
+	if (x < 0 || y < 0 || x >= win->width || y >= win->height)
+		return ;
+	index = y * img->size_line + x * 4;
+	*(int *)(img->data + index) = img->color;
 }
 
 static int	get_color(int value)

@@ -34,6 +34,8 @@ typedef struct s_pixel
 	float	w_y;
 	float	iso_x;
 	float	iso_y;
+	float	normal_iso_x;
+	float	normal_iso_y;
 }	t_pixel;
 
 typedef struct s_window

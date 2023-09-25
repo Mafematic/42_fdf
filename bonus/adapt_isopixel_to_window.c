@@ -13,74 +13,79 @@
 #include "../includes/get_next_line.h"
 #include "../includes/fdf_bonus.h"
 
+static void	normalize_coordinates(t_pixel *pixel, t_prog_data *data)
+{
+	pixel->normal_iso_x = 2.0 * (pixel->iso_x - data->iso->min_iso_x)
+		/ (data->iso->max_iso_x - data->iso->min_iso_x) - 1.0;
+	pixel->normal_iso_y = 2.0 * (pixel->iso_y - data->iso->min_iso_y)
+		/ (data->iso->max_iso_y - data->iso->min_iso_y) - 1.0;
+}
+
+static void	updt_wndw(t_pixel *p, t_prog_data *d, float zm_c_x, float zm_c_y)
+{
+	float	half_width;
+	float	half_height;
+
+	half_width = (d->win->width - 2 * d->win->padding) / 2.0;
+	half_height = (d->win->height - 2 * d->win->padding) / 2.0;
+	p->w_x = d->win->padding
+		+ (p->normal_iso_x * d->scale_factor + 1.0) * half_width;
+	p->w_y = d->win->padding
+		+ (p->normal_iso_y * d->scale_factor + 1.0) * half_height;
+	p->w_x = (p->w_x - zm_c_x) * d->scale_factor + zm_c_x;
+	p->w_y = (p->w_y - zm_c_y) * d->scale_factor + zm_c_y;
+}
+
 void	adapt_iso_pixel(t_prog_data *data)
 {
+	float	zoom_cen_x;
+	float	zoom_cen_y;
 	int		m;
 	int		n;
 	t_pixel	*cur_pixel;
-	float	normalized_iso_x;
-	float	normalized_iso_y;
 
-	float zoom_center_x = data->win->width / 2.0;
-    float zoom_center_y = data->win->height / 2.0;
-
+	zoom_cen_x = data->win->width / 2.0;
+	zoom_cen_y = data->win->height / 2.0;
 	data->win->padding = 20;
 	m = -1;
-	while (++m < data->rows) 
+	while (++m < data->rows)
 	{
 		n = 0;
-		while (n < data->cols) 
+		while (n < data->cols)
 		{
 			cur_pixel = data->grid[m][n];
-			normalized_iso_x = 2.0 * (cur_pixel->iso_x - data->iso->min_iso_x)
-				/ (data->iso->max_iso_x - data->iso->min_iso_x) - 1.0;
-			normalized_iso_y = 2.0 * (cur_pixel->iso_y - data->iso->min_iso_y) 
-				/ (data->iso->max_iso_y - data->iso->min_iso_y) - 1.0;
-			cur_pixel->w_x = data->win->padding + (normalized_iso_x * data->scale_factor + 1.0) 
-				* ((data->win->width - 2 * data->win->padding) / 2.0);
-			cur_pixel->w_y = data->win->padding + (normalized_iso_y * data->scale_factor + 1.0) 
-				* ((data->win->height - 2 * data->win->padding) / 2.0);
-
-			// Apply the zoom transformation around the center of the window
-            cur_pixel->w_x = (cur_pixel->w_x - zoom_center_x) * data->scale_factor + zoom_center_x;
-            cur_pixel->w_y = (cur_pixel->w_y - zoom_center_y) * data->scale_factor + zoom_center_y;
+			normalize_coordinates(cur_pixel, data);
+			updt_wndw(cur_pixel, data, zoom_cen_x, zoom_cen_y);
 			n++;
 		}
 	}
 }
 
-void adapt_ortho_pixel(t_prog_data *data)
+void	adapt_ortho_pixel(t_prog_data *data)
 {
-    int m, n;
-    t_pixel *cur_pixel;
-    float normalized_x, normalized_y;
+	int		m;
+	int		n;
+	t_pixel	*cur_pixel;
+	float	normalized_x;
+	float	normalized_y;
 
-    data->win->padding = 20;
-
-    // The range of x and y in orthographic projection will likely be the raw x and y.
-    // Thus, we can use data->iso->max_iso_x and its companions as our bounds.
-    float max_x = data->ortho->max_ortho_x;
-    float min_x = data->ortho->min_ortho_x;
-    float max_y = data->ortho->max_ortho_y;
-    float min_y = data->ortho->min_ortho_y;
-
-    m = -1;
-    while (++m < data->rows) 
-    {
-        n = 0;
-        while (n < data->cols) 
-        {
-            cur_pixel = data->grid[m][n];
-            normalized_x = 2.0 * (cur_pixel->x - min_x) / (max_x - min_x) - 1.0;
-            normalized_y = 2.0 * (cur_pixel->y - min_y) / (max_y - min_y) - 1.0;
-
-            cur_pixel->w_x = data->win->padding + (normalized_x + 1.0) 
-                * ((data->win->width - 2 * data->win->padding) / 2.0);
-            cur_pixel->w_y = data->win->padding + (normalized_y + 1.0) 
-                * ((data->win->height - 2 * data->win->padding) / 2.0);
-            n++;
-        }
-    }
+	data->win->padding = 20;
+	m = -1;
+	while (++m < data->rows)
+	{
+		n = 0;
+		while (n < data->cols)
+		{
+			cur_pixel = data->grid[m][n];
+			normalized_x = 2.0 * (cur_pixel->x - data->ortho->min_ortho_x)
+				/ (data->ortho->max_ortho_x - data->ortho->min_ortho_x) - 1.0;
+			normalized_y = 2.0 * (cur_pixel->y - data->ortho->min_ortho_y)
+				/ (data->ortho->max_ortho_y - data->ortho->min_ortho_y) - 1.0;
+			cur_pixel->w_x = data->win->padding + (normalized_x + 1.0)
+				* ((data->win->width - 2 * data->win->padding) / 2.0);
+			cur_pixel->w_y = data->win->padding + (normalized_y + 1.0)
+				* ((data->win->height - 2 * data->win->padding) / 2.0);
+			n++;
+		}
+	}
 }
-
-

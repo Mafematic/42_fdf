@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bonus.c                                            :+:      :+:    :+:   */
+/*   change_projection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fszendzi <fszendzi@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 14:55:45 by fszendzi          #+#    #+#             */
-/*   Updated: 2023/09/25 14:55:47 by fszendzi         ###   ########.fr       */
+/*   Created: 2023/09/25 14:55:22 by fszendzi          #+#    #+#             */
+/*   Updated: 2023/09/25 14:55:25 by fszendzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
 #include "../includes/fdf_bonus.h"
 
-void	apply_zoom(t_prog_data *data, float scale_factor)
+void	project_new(t_prog_data *data)
 {
-	int		i;
-	int		j;
-	t_pixel	*cur_pixel;
+	int	projection_mode;
 
-	i = 0;
-	while (i < data->rows)
+	projection_mode = data->current_projection;
+	if (projection_mode == PROJECTION_ORTHO)
 	{
-		j = 0;
-		while (j < data->cols)
-		{
-			cur_pixel = data->grid[i][j];
-			cur_pixel->iso_x *= scale_factor;
-			cur_pixel->iso_y *= scale_factor;
-			j++;
-		}
-		i++;
+		adapt_ortho_pixel(data);
+	}
+	if (projection_mode == PROJECTION_ISO)
+	{
+		adapt_iso_pixel(data);
 	}
 }

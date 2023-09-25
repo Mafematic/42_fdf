@@ -15,7 +15,7 @@ BONUS_DIR = bonus
 BONUS_SRCS = bonus/main.c bonus/get_next_line.c bonus/get_next_line_utils.c bonus/ft_split.c src/ft_substr.c bonus/ft_strdup.c bonus/ft_strlen.c \
 	bonus/ft_atoi.c bonus/open_close_window.c bonus/initialize_grid.c bonus/parse_file.c bonus/open_close_file.c bonus/find_min_max_iso.c \
 	bonus/adapt_isopixel_to_window.c bonus/draw_line.c bonus/draw_grid.c bonus/create_element.c bonus/free_grid.c bonus/find_rows_cols.c \
-	bonus/parse_file2.c bonus/free_words.c bonus/handle.c bonus/bonus.c
+	bonus/parse_file2.c bonus/free_words.c bonus/handle.c bonus/bonus.c bonus/change_projection.c
 
 # Object files
 OBJ_DIR = obj

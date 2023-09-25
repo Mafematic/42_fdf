@@ -52,34 +52,41 @@ t_iso	*find_min_max_iso(t_pixel ***grid, t_prog_data *data)
 	return (iso);
 }
 
-static void update_ortho_bounds(t_ortho *ortho, t_pixel *current_pixel) {
-    // Assuming current_pixel->x and current_pixel->y are the orthographic coordinates
-    if (current_pixel->x < ortho->min_ortho_x)
-        ortho->min_ortho_x = current_pixel->x;
-    if (current_pixel->x > ortho->max_ortho_x)
-        ortho->max_ortho_x = current_pixel->x;
-    if (current_pixel->y < ortho->min_ortho_y)
-        ortho->min_ortho_y = current_pixel->y;
-    if (current_pixel->y > ortho->max_ortho_y)
-        ortho->max_ortho_y = current_pixel->y;
+static void	update_ortho_bounds(t_ortho *ortho, t_pixel *current_pixel)
+{
+	if (current_pixel->x < ortho->min_ortho_x)
+		ortho->min_ortho_x = current_pixel->x;
+	if (current_pixel->x > ortho->max_ortho_x)
+		ortho->max_ortho_x = current_pixel->x;
+	if (current_pixel->y < ortho->min_ortho_y)
+		ortho->min_ortho_y = current_pixel->y;
+	if (current_pixel->y > ortho->max_ortho_y)
+		ortho->max_ortho_y = current_pixel->y;
 }
 
-
-t_ortho *find_min_max_ortho(t_pixel ***grid, t_prog_data *data) 
+t_ortho	*find_min_max_ortho(t_pixel ***grid, t_prog_data *data)
 {
-    t_ortho *ortho = malloc(sizeof(t_ortho));
-    if (ortho == NULL)
-        return (NULL);
+	t_ortho	*ortho;
+	int		i;
+	int		j;
 
-    ortho->min_ortho_x = MY_FLOAT_MAX;
-    ortho->max_ortho_x = MY_FLOAT_MIN;
-    ortho->min_ortho_y = MY_FLOAT_MAX;
-    ortho->max_ortho_y = MY_FLOAT_MIN;
-
-    for (int i = 0; i < data->rows; i++) {
-        for (int j = 0; j < data->cols; j++) {
-            update_ortho_bounds(ortho, grid[i][j]);
-        }
-    }
-    return (ortho);
+	ortho = (t_ortho *)malloc(sizeof(t_ortho));
+	if (ortho == NULL)
+		return (NULL);
+	ortho->min_ortho_x = MY_FLOAT_MAX;
+	ortho->max_ortho_x = MY_FLOAT_MIN;
+	ortho->min_ortho_y = MY_FLOAT_MAX;
+	ortho->max_ortho_y = MY_FLOAT_MIN;
+	i = 0;
+	while (i < data->rows)
+	{
+		j = 0;
+		while (j < data->cols)
+		{
+			update_ortho_bounds(ortho, grid[i][j]);
+			j++;
+		}
+		i++;
+	}
+	return (ortho);
 }
