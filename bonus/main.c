@@ -61,6 +61,8 @@ static void	setup_hooks_and_draw(t_prog_data *data)
 {
 	data->current_projection = PROJECTION_ISO;
 	data->scale_factor = 1.0;
+	data->trans_x = 0.0;
+	data->trans_y = 0.0;
 	adapt_iso_pixel(data);
 	draw_grid(data->grid, data->win, data);
 	mlx_hook(data->win->win_ptr, 2, 1L << 0, handle_key, data);

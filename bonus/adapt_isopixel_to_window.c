@@ -28,10 +28,10 @@ static void	updt_wndw(t_pixel *p, t_prog_data *d, float zm_c_x, float zm_c_y)
 
 	half_width = (d->win->width - 2 * d->win->padding) / 2.0;
 	half_height = (d->win->height - 2 * d->win->padding) / 2.0;
-	p->w_x = d->win->padding
-		+ (p->normal_iso_x * d->scale_factor + 1.0) * half_width;
-	p->w_y = d->win->padding
-		+ (p->normal_iso_y * d->scale_factor + 1.0) * half_height;
+	p->w_x = d->win->padding + (p->normal_iso_x + 1.0)
+		* half_width + d->trans_x;
+	p->w_y = d->win->padding + (p->normal_iso_y + 1.0)
+		* half_height + d->trans_y;
 	p->w_x = (p->w_x - zm_c_x) * d->scale_factor + zm_c_x;
 	p->w_y = (p->w_y - zm_c_y) * d->scale_factor + zm_c_y;
 }

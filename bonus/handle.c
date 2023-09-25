@@ -13,26 +13,6 @@
 #include "../includes/get_next_line.h"
 #include "../includes/fdf_bonus.h"
 
-int	handle_key_bonus(int key, t_prog_data *data)
-{
-	if (key == 61)
-	{
-		data->scale_factor += 0.1;
-		apply_zoom(data, data->scale_factor);
-	}
-	else if (key == 45)
-	{
-		data->scale_factor -= 0.1;
-		apply_zoom(data, data->scale_factor);
-	}
-	if (data->iso)
-		free(data->iso);
-	data->iso = find_min_max_iso(data->grid, data);
-	adapt_iso_pixel(data);
-	draw_grid(data->grid, data->win, data);
-	return (0);
-}
-
 int	handle_key(int keycode, t_prog_data *data)
 {
 	handle_key_bonus(keycode, data);

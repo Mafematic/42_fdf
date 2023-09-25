@@ -24,6 +24,9 @@
 # define MY_FLOAT_MIN -3.402823466e+38F
 # define PROJECTION_ISO 1
 # define PROJECTION_ORTHO 2
+# define SCALE 0.1
+# define TRANSLATION 10.0
+# define ROTATION 5.0
 
 typedef struct s_pixel
 {
@@ -73,6 +76,8 @@ typedef struct s_prog_data
 	int			cols;
 	int			current_projection;
 	float		scale_factor;
+	float		trans_x;
+	float		trans_y;
 }	t_prog_data;
 
 typedef struct s_image {
@@ -99,6 +104,8 @@ typedef struct s_line_vars
 void		adapt_iso_pixel(t_prog_data *data);
 void		adapt_ortho_pixel(t_prog_data *data);
 int			ft_atoi(const char *nptr);
+void		apply_rotation(t_prog_data *data, float angle);
+void		apply_translation(t_prog_data *data, float trans_x, float trans_y);
 void		apply_zoom(t_prog_data *data, float scale_factor);
 int			close_file(int fd);
 void		close_window_and_free(t_window *window);
@@ -119,6 +126,7 @@ void		free_grid(t_pixel ***grid, int num_rows, int num_columns);
 int			handle_close(void *param);
 int			handle_fail(char **line_num, t_pixel ***grid, int x, int y);
 int			handle_key(int keycode, t_prog_data *data);
+int			handle_key_bonus(int key, t_prog_data *data);
 int			handle_overflow_columns(char **numbers_in_line, int y);
 t_pixel		***initialize_grid(int num_rows, int num_columns);
 int			ft_iswhitespace(char c);
