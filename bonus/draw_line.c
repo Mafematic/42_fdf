@@ -32,7 +32,7 @@ static void	initialize_line_vars(t_pixel *start, t_pixel *end, t_line_vars *v)
 	v->err = v->dx - v->dy;
 }
 
-void	draw_line(t_image *img, t_window *w, t_pixel *start, t_pixel *end, int color)
+void	draw_line(t_image *img, t_window *w, t_pixel *start, t_pixel *end)
 {
 	t_line_vars	v;
 	int			e2;
@@ -40,7 +40,7 @@ void	draw_line(t_image *img, t_window *w, t_pixel *start, t_pixel *end, int colo
 	initialize_line_vars(start, end, &v);
 	while (1) 
 	{
-		put_pixel_to_image(img, w, v.x0, v.y0, color);
+		put_pixel_to_image(img, w, v.x0, v.y0);
 		if (v.x0 == v.x1 && v.y0 == v.y1)
 			break ;
 		e2 = 2 * v.err;

@@ -78,6 +78,7 @@ typedef struct s_image {
 	int		size_line;
 	int		bits_pixel;
 	int		endian;
+	int		color;
 }	t_image;
 
 typedef struct s_line_vars
@@ -101,8 +102,7 @@ int			close_file(int fd);
 void		close_window_and_free(t_window *window);
 t_pixel		*create_element(t_pixel pt);
 void		draw_grid(t_pixel ***grid, t_window *w, t_prog_data *data);
-void		draw_line(t_image *img, t_window *w, t_pixel *start, t_pixel *end, int color);
-void		put_pixel_to_image(t_image *img, t_window *win, int x, int y, int color);
+void		draw_line(t_image *img, t_window *w, t_pixel *start, t_pixel *end);
 t_iso		*find_min_max_iso(t_pixel ***grid, t_prog_data *data);
 t_ortho		*find_min_max_ortho(t_pixel ***grid, t_prog_data *data);
 int			find_rows_cols(t_prog_data *data, char *filename);
@@ -124,5 +124,6 @@ int			open_file(char *file_path);
 t_window	*open_window(int width, int height, char *title);
 int			parse_file(t_pixel ***grid, t_prog_data *data, char *filename);
 void		project_new(t_prog_data *data);
+void		put_pixel_to_image(t_image *img, t_window *win, int x, int y);
 
 #endif
