@@ -22,8 +22,8 @@
 
 # define MY_FLOAT_MAX 3.402823466e+38F
 # define MY_FLOAT_MIN -3.402823466e+38F
-#define PROJECTION_ISO 1
-#define PROJECTION_ORTHO 2
+# define PROJECTION_ISO 1
+# define PROJECTION_ORTHO 2
 
 typedef struct s_pixel
 {
@@ -53,12 +53,13 @@ typedef struct s_iso
 	float	max_iso_y;
 }	t_iso;
 
-typedef struct s_ortho {
-    float min_ortho_x;
-    float max_ortho_x;
-    float min_ortho_y;
-    float max_ortho_y;
-} t_ortho;
+typedef struct s_ortho
+{
+	float	min_ortho_x;
+	float	max_ortho_x;
+	float	min_ortho_y;
+	float	max_ortho_y;
+}	t_ortho;
 
 typedef struct s_prog_data
 {
@@ -68,7 +69,7 @@ typedef struct s_prog_data
 	t_ortho		*ortho;
 	int			rows;
 	int			cols;
-	int 		current_projection;
+	int			current_projection;
 	float		scale_factor;
 }	t_prog_data;
 

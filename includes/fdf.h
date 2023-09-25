@@ -22,8 +22,6 @@
 
 # define MY_FLOAT_MAX 3.402823466e+38F
 # define MY_FLOAT_MIN -3.402823466e+38F
-#define PROJECTION_ISO 1
-#define PROJECTION_ORTHO 2
 
 typedef struct s_pixel
 {
@@ -60,7 +58,6 @@ typedef struct s_prog_data
 	t_iso		*iso;
 	int			rows;
 	int			cols;
-	int 		current_projection;
 	float		scale_factor;
 }	t_prog_data;
 
@@ -111,6 +108,6 @@ int			open_file(char *file_path);
 t_window	*open_window(int width, int height, char *title);
 int			parse_file(t_pixel ***grid, t_prog_data *data, char *filename);
 void		project_new(t_prog_data *data);
-void 		put_pixel_to_image(t_image *img, int x, int y, int color);
+void		put_pixel_to_image(t_image *img, int x, int y, int color);
 
 #endif
